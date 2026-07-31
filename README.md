@@ -200,6 +200,7 @@ Feedstock Maintainers
 =====================
 
 * [@dsangillo](https://github.com/dsangillo/)
+* [@eunos-1128](https://github.com/eunos-1128/)
 * [@mxr-conda](https://github.com/mxr-conda/)
 * [@pstjohn](https://github.com/pstjohn/)
 
