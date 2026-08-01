@@ -38,7 +38,7 @@ requirements:
     - if: cuda_compiler_version != "None"
       then:
         - pytorch * cuda*
-        - cuda-version ${{ cuda_compiler_version }}
+        - cuda-version ${{ cuda_compiler_version }}.*
         - libcublas-dev
         - libcurand-dev
         - libcusparse-dev
