@@ -4,7 +4,7 @@ context:
   torch_proc_type:
     - if: cuda_compiler_version != "None"
       then: "cuda"
-      else: "cpu"
+    - else: "cpu"
 
 package:
   name: pytorch_cluster
