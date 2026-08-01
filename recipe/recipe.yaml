@@ -1,10 +1,6 @@
 context:
   version: "1.6.3"
   # see github.com/conda-forge/conda-forge.github.io/issues/1059 for naming discussion
-  torch_proc_type:
-    - if: cuda_compiler_version != "None"
-      then: "cuda"
-    - else: "cpu"
 
 package:
   name: pytorch_cluster
@@ -30,22 +26,28 @@ requirements:
         - python
         - cross-python_${{ target_platform }}
         - pytorch
-        - pytorch * ${{ torch_proc_type }}*
+        - if: cuda_compiler_version != "None"
+          then:
+            - pytorch * cuda*
+          else:
+            - pytorch * cpu*
   host:
     - python
     - pip
     - pytorch
-    - pytorch * ${{ torch_proc_type }}*
-    - setuptools
-    - pytest-runner
-    - scipy
     - if: cuda_compiler_version != "None"
       then:
+        - pytorch * cuda*
         - cuda-version ${{ cuda_compiler_version }}
         - libcublas-dev
         - libcurand-dev
         - libcusparse-dev
         - libcusolver-dev
+      else:
+        - pytorch * cpu*
+    - setuptools
+    - pytest-runner
+    - scipy
   run:
     - python
     - scipy
@@ -54,7 +56,11 @@ requirements:
   run_constraints:
     # additional run constraint to the one from the (version-only) run_export;
     # constraining the CPU builds to CPU pytorch isn't 100% necessary, but cleaner
-    - pytorch * ${{ torch_proc_type }}*
+    - if: cuda_compiler_version != "None"
+      then:
+        - pytorch * cuda*
+      else:
+        - pytorch * cpu*
 
 tests:
   - python:
